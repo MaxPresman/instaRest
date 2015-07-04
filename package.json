@@ -1,0 +1,23 @@
+{
+  "name": "instaAPI",
+  "version": "1.0.0",
+  "description": "expose JSON's as restful API",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "tingodb": "^0.3.4"
+  },
+  "devDependencies": {
+    "coffee-script": "^1.9.3",
+    "gulp": "^3.9.0",
+    "gulp-coffee": "^2.3.1",
+    "gulp-util": "^3.0.6",
+    "gulp-watch": "^4.2.4",
+    "mocha": "^2.2.5",
+    "sinon": "^1.15.4"
+  }
+}
