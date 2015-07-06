@@ -10,6 +10,6 @@ gulp.task 'coffeescript', ->
     .pipe(gulp.dest('./lib/'))
 
 gulp.task 'watch', ->
-  gulp.watch('frontend/**', ['build']);
+  gulp.watch('src/**', ['build']);
 
 gulp.task('build', ['coffeescript'])
