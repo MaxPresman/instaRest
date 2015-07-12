@@ -13,4 +13,6 @@ module.exports =
       loadedFile = fs.readFileSync(stubFilePath, 'UTF-8')
       parsedFile = JSON.parse(loadedFile)
 
+      console.log parsedFile
+
       dataStorage.save(stubFile, parsedFile)
