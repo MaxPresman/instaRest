@@ -1,26 +1,13 @@
-fs = require 'fs';
+{mapObject} = require 'underscore'
+dataStorage = require './storage'
+indexer = require './indexer'
 path = require 'path'
-{each, mapObject} = require 'underscore'
-tingoConfigurator = require('tingodb')({memStore: true}).Db
+
 argz = process.argv.slice(2);
 restify = require('restify');
-
-
-tingo = new tingoConfigurator('/Users/mpresman/Desktop/OSS_control/instaAPI', {});
-
 stubFolder = path.resolve(process.cwd(), argz[0])
-stubFiles = fs.readdirSync(stubFolder)
 
-each stubFiles, (stubFile) ->
-  stubFilePath = path.resolve(stubFolder, stubFile)
-  loadedFile = fs.readFileSync(stubFilePath, 'UTF-8')
-
-  ## create a collection for this file
-  collection = tingo.collection(stubFile)
-
-  parsedFile = JSON.parse(loadedFile)
-
-  collection.insert(parsedFile)
+indexer.indexFolder(stubFolder)
 
 castQuery = (queryObject) ->
   mapObject queryObject, (val, key) ->
@@ -31,11 +18,8 @@ castQuery = (queryObject) ->
 
 
 respond = (req, res, next) ->
-  collection = tingo.collection(req.params.fileName)
-
   castedQueryParams = castQuery(req.query)
-
-  collection.find(castedQueryParams).toArray (err, docs) ->
+  dataStorage.filterBy req.params.fileName, castedQueryParams, (err, docs) ->
     res.send(docs);
     next();
 
@@ -43,6 +27,11 @@ respond = (req, res, next) ->
 server = restify.createServer();
 server.use(restify.queryParser({ mapParams: false }));
 server.get('/:fileName', respond);
+
+server.on 'InternalServerError', (req, resp, route, err) ->
+  console.log req
+  console.log resp
+  console.log err
 
 server.listen 8080, ->
   console.log('%s listening at %s', server.name, server.url);
