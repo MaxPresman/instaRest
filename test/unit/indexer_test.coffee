@@ -6,7 +6,6 @@ sinon = require 'sinon'
 dataStorage = require '../../lib/storage'
 stubbedDataStorage = null
 
-
 describe "JSON --> database indexer", ->
   describe "#indexFolder", ->
 

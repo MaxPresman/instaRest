@@ -1,6 +1,6 @@
 {
-  "name": "instaAPI",
-  "version": "1.0.0",
+  "name": "instaRest",
+  "version": "0.0.1",
   "description": "expose JSON's as restful API",
   "main": "lib/index.js",
   "scripts": {
@@ -10,6 +10,7 @@
   "license": "MIT",
   "dependencies": {
     "bunyan": "^1.4.0",
+    "commander": "^2.8.1",
     "restify": "^3.0.3",
     "tingodb": "^0.3.4",
     "underscore": "^1.8.3"
@@ -27,6 +28,9 @@
     "mocha": "^2.2.5",
     "run-sequence": "^1.1.1",
     "sinon": "^1.15.4"
+  },
+  "bin": {
+    "instarest": "./lib/index.js"
   },
   "config": {
     "blanket": {
